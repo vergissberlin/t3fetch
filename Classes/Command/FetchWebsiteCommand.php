@@ -35,15 +35,15 @@ class FetchWebsiteCommand extends Command
     {
         $fetchDirectory = Environment::getPublicPath() . '/typo3temp/t3fetch';
 
-        // Remove fetch directory
-        exec('rm -rf ' . $fetchDirectory);
-
         // Create fetch directory
         exec('mkdir ' . $fetchDirectory);
 
         // Fetch website recursively
         exec('wget -q -r ' . $input->getArgument('baseUrl') . ' -R "' . self::REJECT . '" -P ' . $fetchDirectory, $output, $status);
 
+        // Remove fetch directory
+        exec('rm -rf ' . $fetchDirectory);
+        
         return $status;
     }
 }
